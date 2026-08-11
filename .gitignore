@@ -1,0 +1,70 @@
+# ==================================================
+# IDEs / Editores
+# ==================================================
+
+.idea/
+.vscode/
+*.iml
+
+
+# ==================================================
+# Sistema Operacional
+# ==================================================
+
+.DS_Store
+Thumbs.db
+
+
+# ==================================================
+# Variáveis de ambiente / Credenciais
+# ==================================================
+
+.env
+.env.*
+!.env.example
+
+
+# ==================================================
+# Java / Spring Boot / Maven
+# ==================================================
+
+backend/target/
+backend/.mvn/timing.properties
+backend/.mvn/wrapper/maven-wrapper.jar
+
+# Logs
+*.log
+
+
+# ==================================================
+# Node.js / React
+# ==================================================
+
+frontend/node_modules/
+frontend/build/
+frontend/dist/
+frontend/.cache/
+frontend/.eslintcache
+
+
+# ==================================================
+# Flutter / Dart
+# ==================================================
+
+mobile/.dart_tool/
+mobile/.packages
+mobile/.pub-cache/
+mobile/build/
+mobile/.flutter-plugins
+mobile/.flutter-plugins-dependencies
+mobile/.flutter_tool_state
+mobile/pubspec.lock
+
+
+# ==================================================
+# Arquivos temporários
+# ==================================================
+
+*.tmp
+*.temp
+*.swp
