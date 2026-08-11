@@ -1,0 +1,5 @@
+# Maven Wrapper - Unix/Linux/macOS
+backend/mvnw text eol=lf
+
+# Windows command scripts
+*.cmd text eol=crlf
