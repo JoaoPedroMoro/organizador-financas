@@ -1,8 +1,10 @@
 package br.com.organizador_financas.service;
 
 import br.com.organizador_financas.entity.Categoria;
+import br.com.organizador_financas.exception.CategoriaNotFoundException;
 import br.com.organizador_financas.repository.CategoriaRepository;
 import org.springframework.stereotype.Service;
+import br.com.organizador_financas.exception.CategoriaNotFoundException;
 
 import java.util.List;
 
@@ -21,7 +23,7 @@ public class CategoriaService {
 
     public Categoria buscarPorId(Long id) {
         return categoriaRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Categoria não encontrada"));
+                .orElseThrow(() -> new CategoriaNotFoundException(id));
     }
 
     public Categoria criar(Categoria categoria) {
