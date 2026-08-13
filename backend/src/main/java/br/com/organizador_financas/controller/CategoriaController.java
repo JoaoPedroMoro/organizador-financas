@@ -2,6 +2,7 @@ package br.com.organizador_financas.controller;
 
 import br.com.organizador_financas.entity.Categoria;
 import br.com.organizador_financas.service.CategoriaService;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,14 +29,14 @@ public class CategoriaController {
     }
 
     @PostMapping
-    public ResponseEntity<Categoria> criar(@RequestBody Categoria categoria) {
+    public ResponseEntity<Categoria> criar(@Valid @RequestBody Categoria categoria) {
         return ResponseEntity.ok(categoriaService.criar(categoria));
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Categoria> atualizar(
             @PathVariable Long id,
-            @RequestBody Categoria categoria) {
+            @Valid @RequestBody Categoria categoria) {
 
         return ResponseEntity.ok(categoriaService.atualizar(id, categoria));
     }
