@@ -49,6 +49,7 @@ organizador-financas/
 │           └── java/
 │               └── br/com/organizador_financas/
 │                   ├── controller/
+│                   ├── dto/
 │                   ├── entity/
 │                   ├── exception/
 │                   ├── repository/
@@ -98,6 +99,39 @@ O CRUD de categorias já está implementado:
 | PUT    | `/categorias/{id}` | Atualiza uma categoria      |
 | DELETE | `/categorias/{id}` | Remove uma categoria        |
 
+### Movimentações
+O recurso de movimentações permite registrar receitas e despesas e associá-las a uma categoria.
+
+A entidade `Movimentacao` possui atualmente:
+- id
+- descricao
+- valor
+- data
+- tipo
+- categoria
+
+Uma movimentação possui um relacionamento `ManyToOne` com a entidade `Categoria`.
+
+O CRUD de movimentação já está implementado:
+
+| Método | Endpoint           | Descrição                   |
+| ------ | ------------------ | --------------------------- |
+| GET    | `/movimentacoes`      | Lista todas as movimentações   |
+| GET    | `/movimentacoes/{id}` | Busca uma movimentação pelo ID |
+| POST   | `/movimentacoes`      | Cria uma nova movimentação     |
+| PUT    | `/movimentacoes/{id}` | Atualiza uma movimentação      |
+| DELETE | `/movimentacoes/{id}` | Remove uma movimentação        |
+
+### Validações
+A entidade `Movimentacao` possui validações para garantir que os dados obrigatórios sejam informados corretamente.
+
+Atualmente são realizadas validações para:
+- Descrição obrigatória
+- Valor obrigatório
+- Valor maior que zero
+- Data obrigatória
+- Tipo da movimentação obrigatório
+
 ### Tratamento de erros
 
 A API possui tratamento global de exceções para recursos não encontrados.
@@ -116,6 +150,14 @@ a API retorna:
     "error": "Not Found",
     "message": "Categoria não encontrada com o ID: 999"
 }
+```
+
+O tratamento é realizado através das classes:
+```
+exception/
+├── CategoriaNotFoundException.java
+├── ErrorResponse.java
+└── GlobalExceptionHandler.java
 ```
 
 ## Banco de dados
@@ -145,6 +187,13 @@ ou seja:
 
 ```text
 localhost:5433 → PostgreSQL no container:5432
+```
+
+Atualmente, o banco possui as seguintes tabelas:
+```
+public
+├── categoria
+└── movimentacao
 ```
 
 ## Status
