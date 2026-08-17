@@ -7,6 +7,8 @@ import jakarta.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+import br.com.organizador_financas.entity.TipoMovimentacao;
+
 public class MovimentacaoRequest {
 
     @NotBlank(message = "A descrição é obrigatória.")
@@ -19,8 +21,8 @@ public class MovimentacaoRequest {
     @NotNull(message = "A data é obrigatória.")
     private LocalDate data;
 
-    @NotBlank(message = "O tipo da movimentação é obrigatório.")
-    private String tipo;
+    @NotNull(message = "O tipo da movimentação é obrigatório.")
+    private TipoMovimentacao tipo;
 
     @NotNull(message = "A categoria é obrigatória.")
     private Long categoriaId;
@@ -49,11 +51,11 @@ public class MovimentacaoRequest {
         this.data = data;
     }
 
-    public String getTipo() {
+    public TipoMovimentacao getTipo() {
         return tipo;
     }
 
-    public void setTipo(String tipo) {
+    public void setTipo(TipoMovimentacao tipo) {
         this.tipo = tipo;
     }
 

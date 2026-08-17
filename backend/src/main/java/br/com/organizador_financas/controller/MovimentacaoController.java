@@ -28,7 +28,7 @@ public class MovimentacaoController {
     public ResponseEntity<Movimentacao> buscarPorId(@PathVariable Long id) {
         return ResponseEntity.ok(movimentacaoService.buscarPorId(id));
     }
-    
+
     @PostMapping
     public ResponseEntity<Movimentacao> criar(
             @Valid @RequestBody MovimentacaoRequest request) {
@@ -39,10 +39,10 @@ public class MovimentacaoController {
     @PutMapping("/{id}")
     public ResponseEntity<Movimentacao> atualizar(
             @PathVariable Long id,
-            @RequestBody Movimentacao movimentacao) {
+            @Valid @RequestBody MovimentacaoRequest request) {
 
         return ResponseEntity.ok(
-                movimentacaoService.atualizar(id, movimentacao)
+                movimentacaoService.atualizar(id, request)
         );
     }
 

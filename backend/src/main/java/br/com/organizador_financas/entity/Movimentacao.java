@@ -25,8 +25,9 @@ public class Movimentacao {
     @NotNull(message = "A data é obrigatória.")
     private LocalDate data;
 
-    @NotBlank(message = "O tipo da movimentação é obrigatório.")
-    private String tipo;
+    @NotNull(message = "O tipo da movimentação é obrigatório.")
+    @Enumerated(EnumType.STRING)
+    private TipoMovimentacao tipo;
 
     @ManyToOne
     @JoinColumn(name = "categoria_id")
@@ -39,7 +40,7 @@ public class Movimentacao {
             String descricao,
             BigDecimal valor,
             LocalDate data,
-            String tipo,
+            TipoMovimentacao tipo,
             Categoria categoria) {
 
         this.descricao = descricao;
@@ -77,11 +78,11 @@ public class Movimentacao {
         this.data = data;
     }
 
-    public String getTipo() {
+    public TipoMovimentacao getTipo() {
         return tipo;
     }
 
-    public void setTipo(String tipo) {
+    public void setTipo(TipoMovimentacao tipo) {
         this.tipo = tipo;
     }
 

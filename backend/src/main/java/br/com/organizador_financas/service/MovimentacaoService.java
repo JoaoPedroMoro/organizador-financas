@@ -54,15 +54,24 @@ public class MovimentacaoService {
 
         return movimentacaoRepository.save(movimentacao);
     }
-    public Movimentacao atualizar(Long id, Movimentacao movimentacao) {
+    
+    public Movimentacao atualizar(Long id, MovimentacaoRequest request) {
 
         Movimentacao movimentacaoExistente = buscarPorId(id);
 
-        movimentacaoExistente.setDescricao(movimentacao.getDescricao());
-        movimentacaoExistente.setValor(movimentacao.getValor());
-        movimentacaoExistente.setData(movimentacao.getData());
-        movimentacaoExistente.setTipo(movimentacao.getTipo());
-        movimentacaoExistente.setCategoria(movimentacao.getCategoria());
+        Categoria categoria = categoriaRepository
+                .findById(request.getCategoriaId())
+                .orElseThrow(() ->
+                        new CategoriaNotFoundException(
+                                request.getCategoriaId()
+                        )
+                );
+
+        movimentacaoExistente.setDescricao(request.getDescricao());
+        movimentacaoExistente.setValor(request.getValor());
+        movimentacaoExistente.setData(request.getData());
+        movimentacaoExistente.setTipo(request.getTipo());
+        movimentacaoExistente.setCategoria(categoria);
 
         return movimentacaoRepository.save(movimentacaoExistente);
     }
