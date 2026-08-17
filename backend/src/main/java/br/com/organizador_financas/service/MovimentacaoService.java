@@ -1,5 +1,6 @@
 package br.com.organizador_financas.service;
 
+import br.com.organizador_financas.dto.request.MovimentacaoRequest;
 import br.com.organizador_financas.entity.Categoria;
 import br.com.organizador_financas.entity.Movimentacao;
 import br.com.organizador_financas.exception.CategoriaNotFoundException;
@@ -33,21 +34,26 @@ public class MovimentacaoService {
                         new RuntimeException("Movimentação não encontrada com o ID: " + id));
     }
 
-    public Movimentacao criar(Movimentacao movimentacao) {
+    public Movimentacao criar(MovimentacaoRequest request) {
 
         Categoria categoria = categoriaRepository
-                .findById(movimentacao.getCategoria().getId())
+                .findById(request.getCategoriaId())
                 .orElseThrow(() ->
                         new CategoriaNotFoundException(
-                                movimentacao.getCategoria().getId()
+                                request.getCategoriaId()
                         )
                 );
 
-        movimentacao.setCategoria(categoria);
+        Movimentacao movimentacao = new Movimentacao(
+                request.getDescricao(),
+                request.getValor(),
+                request.getData(),
+                request.getTipo(),
+                categoria
+        );
 
         return movimentacaoRepository.save(movimentacao);
     }
-
     public Movimentacao atualizar(Long id, Movimentacao movimentacao) {
 
         Movimentacao movimentacaoExistente = buscarPorId(id);

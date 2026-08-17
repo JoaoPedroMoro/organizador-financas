@@ -1,10 +1,11 @@
 package br.com.organizador_financas.service;
 
 import br.com.organizador_financas.entity.Categoria;
+import br.com.organizador_financas.exception.CategoriaEmUsoException;
 import br.com.organizador_financas.exception.CategoriaNotFoundException;
 import br.com.organizador_financas.repository.CategoriaRepository;
 import org.springframework.stereotype.Service;
-import br.com.organizador_financas.exception.CategoriaNotFoundException;
+import br.com.organizador_financas.repository.MovimentacaoRepository;
 
 import java.util.List;
 
@@ -12,9 +13,14 @@ import java.util.List;
 public class CategoriaService {
 
     private final CategoriaRepository categoriaRepository;
+    private final MovimentacaoRepository movimentacaoRepository;
 
-    public CategoriaService(CategoriaRepository categoriaRepository) {
+    public CategoriaService(
+            CategoriaRepository categoriaRepository,
+            MovimentacaoRepository movimentacaoRepository) {
+
         this.categoriaRepository = categoriaRepository;
+        this.movimentacaoRepository = movimentacaoRepository;
     }
 
     public List<Categoria> listarTodas() {
@@ -40,6 +46,10 @@ public class CategoriaService {
 
     public void deletar(Long id) {
         Categoria categoria = buscarPorId(id);
+
+        if (movimentacaoRepository.existsByCategoriaId(id)) {
+            throw new CategoriaEmUsoException();
+        }
 
         categoriaRepository.delete(categoria);
     }

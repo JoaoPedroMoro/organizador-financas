@@ -1,7 +1,9 @@
 package br.com.organizador_financas.controller;
 
+import br.com.organizador_financas.dto.request.MovimentacaoRequest;
 import br.com.organizador_financas.entity.Movimentacao;
 import br.com.organizador_financas.service.MovimentacaoService;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,12 +28,12 @@ public class MovimentacaoController {
     public ResponseEntity<Movimentacao> buscarPorId(@PathVariable Long id) {
         return ResponseEntity.ok(movimentacaoService.buscarPorId(id));
     }
-
+    
     @PostMapping
     public ResponseEntity<Movimentacao> criar(
-            @RequestBody Movimentacao movimentacao) {
+            @Valid @RequestBody MovimentacaoRequest request) {
 
-        return ResponseEntity.ok(movimentacaoService.criar(movimentacao));
+        return ResponseEntity.ok(movimentacaoService.criar(request));
     }
 
     @PutMapping("/{id}")
