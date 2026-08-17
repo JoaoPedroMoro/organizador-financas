@@ -626,11 +626,11 @@ Caso existam movimentações associadas à categoria, a aplicação deve impedir
 * [x] Tratamento de categorias inexistentes (`404`)
 * [x] Validação de categorias utilizadas por movimentações
 * [x] Testes manuais da API utilizando Postman
+* [x] Aprimorar as regras de negócio financeiras
+* [x] Melhorar o controle dos tipos de movimentação
 
 ### Próximos passos
 
-* [ ] Aprimorar as regras de negócio financeiras
-* [ ] Melhorar o controle dos tipos de movimentação
 * [ ] Implementar filtros de movimentações
 * [ ] Implementar consultas por período
 * [ ] Implementar resumo financeiro

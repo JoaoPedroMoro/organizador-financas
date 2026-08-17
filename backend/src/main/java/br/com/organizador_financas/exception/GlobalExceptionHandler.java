@@ -2,6 +2,7 @@ package br.com.organizador_financas.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -44,18 +45,26 @@ public class GlobalExceptionHandler {
                 .body(errorResponse);
     }
 
-    @ExceptionHandler(CategoriaEmUsoException.class)
-    public ResponseEntity<ErrorResponse> handleCategoriaEmUso(
-            CategoriaEmUsoException exception) {
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    public ResponseEntity<ErrorResponse> handleHttpMessageNotReadable(
+            HttpMessageNotReadableException exception) {
+
+        String mensagem = "Dados da requisição inválidos.";
+
+        if (exception.getMessage() != null &&
+                exception.getMessage().contains("TipoMovimentacao")) {
+
+            mensagem = "Tipo de movimentação inválido. Valores permitidos: RECEITA, DESPESA.";
+        }
 
         ErrorResponse errorResponse = new ErrorResponse(
-                HttpStatus.CONFLICT.value(),
-                "Conflict",
-                exception.getMessage()
+                HttpStatus.BAD_REQUEST.value(),
+                "Bad Request",
+                mensagem
         );
 
         return ResponseEntity
-                .status(HttpStatus.CONFLICT)
+                .status(HttpStatus.BAD_REQUEST)
                 .body(errorResponse);
     }
 }
